@@ -1,4 +1,5 @@
 import os
+import shutil
 import glob
 import numpy as np
 import math
@@ -34,19 +35,30 @@ def visualize_poses(poses, size=0.1):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('scenedir', type=str, help='input scene directory') 
+    parser.add_argument('scenedir', type=str, help='input scene directory')
+    parser.add_argument('--images_dir', type=str, default='images', help="images folder (do not include full path, e.g., just use `images_4`)")
     parser.add_argument('--visualize', action="store_true", help='visualize camera positions with trimesh')
 
     args = parser.parse_args()
 
-    with open(os.path.join(args.scenedir, 'transforms_example.json'),) as transforms_file:
+    with open(os.path.join(args.scenedir, './transforms.json'),) as transforms_file:
         transforms = json.load(transforms_file)
-
-        # TODO copy all pictures to /images dir and name them sequentially
+        
+        IMAGES_DIR = args.images_dir
+        # potentially dangerous
+        shutil.rmtree(IMAGES_DIR)
+        os.makedirs(IMAGES_DIR)
 
         poses_bounds_list = []
 
-        for frame in transforms["frames"]:
+        for i, frame in enumerate(transforms["frames"]):
+            # TODO copy all pictures to /images dir and name them sequentially
+            file_path = frame["file_path"]
+
+            # TODO use same file extension
+            destination_path = os.path.join(IMAGES_DIR, "image_{i%04d}.jpg")
+            shutil.copyfile(file_path, destination_path)
+
             h, w = frame["w"], frame["h"]
             f = ( frame["fl_x"] + frame["fl_y"] ) / 2.0
             # w, h, f = factor * w, factor * h, factor * f
@@ -90,7 +102,7 @@ if __name__ == '__main__':
             pose = np.concatenate((pose[:, 1:2], pose[:, 0:1], -pose[:, 2:3], pose[:, 3:4], pose[:, 4:5]), 1)
 
             pose = pose.flatten()
-            bounds = np.array([0.1, 1])
+            bounds = np.array([0.1, 10])
 
             pose_bounds = np.concatenate((pose, bounds))
 
