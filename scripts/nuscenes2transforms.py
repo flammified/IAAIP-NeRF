@@ -101,6 +101,39 @@ def run_ffmpeg(args):
     do_system(
         f"ffmpeg -i {video} -qscale:v 1 -qmin 1 -vf \"fps={fps}{time_slice_value}\" {images}/%04d.jpg")
 
+# def run_colmap(args):
+# 	db = args.colmap_db
+# 	images = "\"" + args.images + "\""
+# 	db_noext=str(Path(db).with_suffix(""))
+
+# 	if args.text=="text":
+# 		args.text=db_noext+"_text"
+# 	text=args.text
+# 	sparse=db_noext+"_sparse"
+# 	print(f"running colmap with:\n\tdb={db}\n\timages={images}\n\tsparse={sparse}\n\ttext={text}")
+# 	if (input(f"warning! folders '{sparse}' and '{text}' will be deleted/replaced. continue? (Y/n)").lower().strip()+"y")[:1] != "y":
+# 		sys.exit(1)
+# 	if os.path.exists(db):
+# 		os.remove(db)
+# 	do_system(f"colmap feature_extractor --ImageReader.camera_model {args.colmap_camera_model} --ImageReader.camera_params \"{args.colmap_camera_params}\" --SiftExtraction.estimate_affine_shape=true --SiftExtraction.domain_size_pooling=true --ImageReader.single_camera 1 --database_path {db} --image_path {images}")
+# 	match_cmd = f"colmap {args.colmap_matcher}_matcher --SiftMatching.guided_matching=true --database_path {db}"
+# 	if args.vocab_path:
+# 		match_cmd += f" --VocabTreeMatching.vocab_tree_path {args.vocab_path}"
+# 	do_system(match_cmd)
+# 	try:
+# 		shutil.rmtree(sparse)
+# 	except:
+# 		pass
+# 	do_system(f"mkdir {sparse}")
+# 	do_system(f"colmap mapper --database_path {db} --image_path {images} --output_path {sparse}")
+# 	do_system(f"colmap bundle_adjuster --input_path {sparse}/0 --output_path {sparse}/0 --BundleAdjustment.refine_principal_point 1")
+# 	try:
+# 		shutil.rmtree(text)
+# 	except:
+# 		pass
+# 	do_system(f"mkdir {text}")
+# 	do_system(f"colmap model_converter --input_path {sparse}/0 --output_path {text} --output_type TXT")
+
 
 def variance_of_laplacian(image):
     return cv2.Laplacian(image, cv2.CV_64F).var()
@@ -388,8 +421,10 @@ if __name__ == "__main__":
     for f in out["frames"]:
         f["transform_matrix"][0:3, 3] *= 4.0 * SCENE_SCALE_COEFF / avglen  # scale to "nerf sized"
 
+    # print(nframes,"frames")
     for f in out["frames"]:
         f["transform_matrix"] = f["transform_matrix"].tolist()
+
 
     print(f"writing {OUT_PATH}")
     with open(OUT_PATH, "w") as outfile:
