@@ -46,7 +46,10 @@ if __name__ == '__main__':
         
         IMAGES_DIR = args.images_dir
         # potentially dangerous
-        shutil.rmtree(IMAGES_DIR)
+        try:
+            shutil.rmtree(IMAGES_DIR)
+        except FileNotFoundError:
+            pass
         os.makedirs(IMAGES_DIR)
 
         poses_bounds_list = []
