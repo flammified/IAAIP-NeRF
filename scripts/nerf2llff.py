@@ -59,7 +59,7 @@ if __name__ == '__main__':
             file_path = frame["file_path"]
 
             # TODO use same file extension
-            destination_path = os.path.join(IMAGES_DIR, "image_{i%04d}.jpg")
+            destination_path = os.path.join(IMAGES_DIR, f"image_{i:04d}.jpg")
             shutil.copyfile(file_path, destination_path)
 
             h, w = frame["w"], frame["h"]
