@@ -7,3 +7,5 @@
 [submodule "papers/LLFF"]
 	path = papers/LLFF
 	url = https://github.com/Fyusion/LLFF
+[submodule "papers/Ha-NeRF"]
+	url = https://github.com/rover-xingyu/Ha-NeRF
