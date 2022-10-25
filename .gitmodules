@@ -1,0 +1,3 @@
+[submodule "papers/instant-ngp"]
+	path = papers/instant-ngp
+	url = https://github.com/duico/instant-ngp
