@@ -10,10 +10,6 @@
 [submodule "papers/Ha-NeRF"]
 	path = papers/Ha-NeRF
 	url = https://github.com/rover-xingyu/Ha-NeRF
-[submodule "papers/multinerf"]
-	path = papers/multinerf
-	url = https://github.com/google-research/multinerf
 [submodule "papers/nerf_pl"]
 	path = papers/nerf_pl
 	url = https://github.com/kwea123/nerf_pl
-
