@@ -1,3 +1,9 @@
 [submodule "papers/instant-ngp"]
 	path = papers/instant-ngp
 	url = https://github.com/duico/instant-ngp
+[submodule "papers/torch-ngp"]
+	path = papers/torch-ngp
+	url = git@github.com:ashawkey/torch-ngp.git
+[submodule "papers/LLFF"]
+	path = papers/LLFF
+	url = https://github.com/Fyusion/LLFF
