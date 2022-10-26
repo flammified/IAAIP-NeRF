@@ -44,7 +44,7 @@ if __name__ == '__main__':
     with open(os.path.join(args.scenedir, './transforms.json'),) as transforms_file:
         transforms = json.load(transforms_file)
         
-        IMAGES_DIR = args.images_dir
+        IMAGES_DIR = os.path.join(args.scenedir, args.images_dir)
         # potentially dangerous
         try:
             shutil.rmtree(IMAGES_DIR)
@@ -60,7 +60,7 @@ if __name__ == '__main__':
 
             # TODO use same file extension
             destination_path = os.path.join(IMAGES_DIR, f"image_{i:04d}.jpg")
-            shutil.copyfile(file_path, destination_path)
+            shutil.copyfile(os.path.join(args.scenedir,file_path), destination_path)
 
             h, w = frame["w"], frame["h"]
             f = ( frame["fl_x"] + frame["fl_y"] ) / 2.0
