@@ -22,7 +22,7 @@ if __name__ == '__main__':
     parser.add_argument('--percent_train', type=float, default=80.0, help='percent of total pictures to be used for training')
     parser.add_argument('--random_seed', type=int, default=1337, help='seed for replicable results, applied to np.random.seed')
 
-
+    print("Tip: use --random_seed SEED to make splits actually random")
     args = parser.parse_args()
 
     # REGNERF:
