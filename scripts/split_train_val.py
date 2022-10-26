@@ -7,17 +7,34 @@ import json
 import trimesh
 import argparse
 
+def delete_create_dir(dir):
+    try:
+        shutil.rmtree(dir)
+    except FileNotFoundError:
+        pass
+    os.makedirs(dir)
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('scenedir', type=str, help='input scene directory')
+    parser.add_argument('--scenedir', type=str, default=".", help='input scene directory')
+    parser.add_argument('--images_path', type=str, default='images', help="path for input images")
     parser.add_argument('--visualize', action="store_true", help='visualize camera positions with trimesh')
     parser.add_argument('--percent_train', type=float, default=80.0, help='percent of total pictures to be used for training')
+
+    args = parser.parse_args()
 
     # REGNERF:
     # images_train
     # images_test
+    images_train = os.path.join(args.scenedir, "images_train")
+    images_test = os.path.join(args.scenedir, "images_test")
 
-    args = parser.parse_args()
+    print(images_test)
+    exit(0)
+
+    delete_create_dir(images_train)
+    delete_create_dir(images_test)
+
     TRAIN_RATIO = max(min(args.percent_train / 100.0, 1.0), 0.0)
     with open(os.path.join(args.scenedir, './transforms.json'),) as transforms_file:
         transforms = json.load(transforms_file)
@@ -29,7 +46,7 @@ if __name__ == '__main__':
             args.scenedir += '/'
 
         # TODO load images and split them
-        # images = [f[len(opt.path):] for f in sorted(glob.glob(os.path.join(opt.path, opt.images, "*"))) if f.lower().endswith('png') or f.lower().endswith('jpg') or f.lower().endswith('jpeg')]
+        # images = [f for f in sorted(glob.glob(os.path.join(os.path.join(args.scenedir, args.images_path), args.images, "*"))) if f.lower().endswith('png') or f.lower().endswith('jpg') or f.lower().endswith('jpeg')]
 
         poses_bounds = np.load(os.path.join(args.scenedir, 'poses_bounds.npy'))
         N_pb = poses_bounds.shape[0]
@@ -54,6 +71,19 @@ if __name__ == '__main__':
         transforms_val = dict(transforms)
         transforms_train["frames"] = transforms_frames_train
         transforms_val["frames"] = transforms_frames_val
+
+        for f in transforms_frames_train:
+            file_path = os.path.join(args.scenedir, f["file_path"])
+            new_path = os.path.join(images_train, os.path.basename(file_path))
+            os.link(file_path, new_path)
+            f["file_path"] = new_path
+        
+        for f in transforms_frames_val:
+            file_path = os.path.join(args.scenedir, f["file_path"])
+            new_path = os.path.join(images_train, os.path.basename(file_path))
+            os.link(file_path, new_path)
+            f["file_path"] = new_path
+
 
         with open(os.path.join(args.scenedir, './transforms_train.json'), "w") as outfile:
             json.dump(transforms_train, outfile, indent=2)
