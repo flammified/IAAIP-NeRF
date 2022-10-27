@@ -1,4 +1,7 @@
 # Setup detectron2 logger
+import argparse
+import glob
+from pathlib import Path
 from detectron2.utils.logger import setup_logger
 setup_logger()
 
@@ -50,23 +53,33 @@ def create_mask(image, mask_filename):
     cv2.imwrite(mask_filename, mask_file)
 
 def create_masks(image_dir):
+
+    filenames = [f for f in sorted(glob.glob(os.path.join(image_dir, "*"))) if f.lower().endswith('png') or f.lower().endswith('jpg') or f.lower().endswith('jpeg')]
+    N = len(filenames)
+    print(f"Found {N} pictures in {image_dir}")
     print("Start creating masks for the specified images...")
 
-    filenames = os.listdir(image_dir)
     pbar = tqdm(total=len(filenames))
 
-    for filename in filenames:
-        im = cv2.imread(os.path.join(image_dir, filename))
-        filename_without_extension = filename[:-4]
-        mask_filename = f'{image_dir}/dynamic_mask_{filename_without_extension}.png'
-        create_mask(im, mask_filename)
+    for i, filename in enumerate(filenames):
+        print(f"Image {i+1}/{N}")
+        im = cv2.imread(filename)
+        filename_without_extension = Path(filename).stem
+        mask_filename = Path(image_dir).joinpath(f"dynamic_mask_{filename_without_extension}.png")
+        create_mask(im, str(mask_filename))
         pbar.update(1)
 
     pbar.close()
 
-    print("Masks successfully created!")
+    print("Masks successfully created.")
 
 if __name__ == "__main__":
-    # Create and save masks
-    image_dir = sys.argv[1]
-    create_masks(image_dir)
+    parser = argparse.ArgumentParser(
+        description="generate a mask (with detectron2) for dynamic objects that can appear in car datasets, for each picture in the specified directories")
+
+    parser.add_argument("image_dirs", nargs='+', type=str, help="directories containing the input images")
+
+    args = parser.parse_args()
+    for image_dir in args.image_dirs:
+        # Create and save masks
+        create_masks(image_dir)
