@@ -18,7 +18,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('scenedir', type=str, help='input scene directory')
     parser.add_argument('--images_path', type=str, default='images', help="path for input images")
-    parser.add_argument('--visualize', action="store_true", help='visualize camera positions with trimesh')
+    # parser.add_argument('--visualize', action="store_true", help='visualize camera positions with trimesh')
     parser.add_argument('--percent_train', type=float, default=80.0, help='percent of total pictures to be used for training')
     parser.add_argument('--random_seed', type=int, default=1337, help='seed for replicable results, applied to np.random.seed')
 
