@@ -10,6 +10,6 @@
 [submodule "papers/Ha-NeRF"]
 	path = papers/Ha-NeRF
 	url = https://github.com/rover-xingyu/Ha-NeRF
-[submodule "papers/nerf_pl"]
+[submodule "https://github.com/flammified/nerf_pl"]
 	path = papers/nerf_pl
-	url = https://github.com/kwea123/nerf_pl
+	url = https://github.com/flammified/nerf_pl
