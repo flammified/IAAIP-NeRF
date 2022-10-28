@@ -13,3 +13,6 @@
 [submodule "https://github.com/flammified/nerf_pl"]
 	path = papers/nerf_pl
 	url = https://github.com/flammified/nerf_pl
+[submodule "papers/nerfstudio"]
+	path = papers/nerfstudio
+	url = git@github.com:flammified/nerfstudio.git
