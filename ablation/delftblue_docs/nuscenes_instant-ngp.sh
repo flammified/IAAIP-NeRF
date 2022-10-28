@@ -26,7 +26,7 @@ cd $EXPERIMENT_DIR
 
 # run this once per scene to obtain a fixed value for --up, --totp, --avglen
 ../../../scripts/dataset2nerf_nuscenes.py --nuscenes_dataroot /scratch/aduico/datasets/nuscenes/ --aabb_scale=4 --adaptive_rescale --num_dataset_samples 14 --scene_num $SCENE_NUM # without --sensors it will use all available cameras
-# this will output something like:
+# IMPORTANT: keep note of the output:
 # up vector was [ 0.01769267 -0.00154715 -0.99984228]
 # computing center of attention...
 # totp: [-541.36052319 1923.06989148   14.16387316]
