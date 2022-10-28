@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name="nerf-pl-example"
+#SBATCH --job-name="monodepth2"
 #SBATCH --time=01:00:00
 #SBATCH --partition=gpu
 #SBATCH --ntasks=1
