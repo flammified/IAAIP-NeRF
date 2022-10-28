@@ -16,4 +16,4 @@ conda activate nerf_pl
 DATASET=nuscenes-3
 CKPT=epoch8.ckpt
 
-python ../../papers/nerf_pl/eval.py --dataset_name llff --root_dir ../../../datasets/${DATASET}/llff --N_importance 64 --img_wh 1600 900 --split val
+python ../../papers/nerf_pl/eval.py --dataset_name llff --root_dir ../../../datasets/${DATASET}/llff --N_importance 64 --img_wh 1600 900 --split val --ckpt_path ckpts/${DATASET}/${CKPT}
