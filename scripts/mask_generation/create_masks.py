@@ -41,16 +41,18 @@ def create_mask(image, mask_filename):
     if instances.pred_classes.size(dim=0) != 0:
         instances = instances[torch.as_tensor([elem in CLASSES_OF_INTEREST for elem in instances.pred_classes])]
 
-    # Use `Visualizer` to draw blue masks on the black image
+    # Use `Visualizer` to draw masks on the black image
     v = Visualizer(np.zeros_like(image[:, :, ::-1]), MetadataCatalog.get(cfg.DATASETS.TRAIN[0]))
     masks = instances.pred_masks.cpu().data.numpy()
     for m in masks:
-        v.draw_binary_mask(m, color="b")
+        v.draw_binary_mask(m, color="w")
     output = v.get_output()
 
     # Save the freshly created mask
-    mask_file = output.get_image()[:, :, ::-1]
-    cv2.imwrite(mask_filename, mask_file)
+    mask_img = output.get_image()[:, :, ::-1]
+    mask_img[np.nonzero(mask_img)] = 0xFF
+    mask_img = cv2.GaussianBlur(mask_img,(5,5),0)
+    cv2.imwrite(mask_filename, mask_img)
 
 def create_masks(image_dir):
 
