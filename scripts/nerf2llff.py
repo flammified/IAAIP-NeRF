@@ -62,8 +62,11 @@ if __name__ == '__main__':
             destination_path = os.path.join(IMAGES_DIR, f"image_{i:04d}.jpg")
             shutil.copyfile(os.path.join(args.scenedir,file_path), destination_path)
 
-            h, w = frame["w"], frame["h"]
-            f = ( frame["fl_x"] + frame["fl_y"] ) / 2.0
+            w = frame["w"] if "w" in frame else transforms["w"]
+            h = frame["h"] if "h" in frame else transforms["h"]
+            fl_x = frame["fl_x"] if "fl_x" in frame else transforms["fl_x"]
+            fl_y = frame["fl_y"] if "fl_y" in frame else transforms["fl_y"]
+            f = ( fl_x + fl_y ) / 2.0
             # w, h, f = factor * w, factor * h, factor * f
             hwf = np.array([h,w,f]).reshape([3,1])
 
