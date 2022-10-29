@@ -14,6 +14,6 @@ module load miniconda3
 conda activate nerf_pl
 
 DATASET=nuscenes-3
-CKPT=epoch8.ckpt
+CKPT=epoch0
 
-python ../../papers/nerf_pl/eval.py --dataset_name llff --root_dir ../../../datasets/${DATASET} --N_importance 64 --img_wh 1600 900 --split val --ckpt_path ckpts/${DATASET}/${CKPT}
+python ../../papers/nerf_pl/eval.py --dataset_name llff --root_dir ../../../datasets/${DATASET} --N_importance 64 --img_wh 1600 900 --split test --ckpt_path ckpts/${DATASET}/${CKPT}
