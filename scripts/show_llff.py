@@ -98,9 +98,17 @@ if __name__ == '__main__':
     # fl = fl / args.downscale
 
     # print(f'[INFO] H = {H}, W = {W}, fl = {fl} (downscale = {args.downscale})')
+    
+    # near_original = bounds.min()
+    # scale_factor = near_original*0.75 # 0.75 is the default parameter
+    #                                       # the nearest depth is at 1/0.75=1.33
+    # bounds /= scale_factor
+    # poses[..., 3] /= scale_factor
 
     # inversion of this: https://github.com/Fyusion/LLFF/blob/c6e27b1ee59cb18f054ccb0f87a90214dbe70482/llff/poses/pose_utils.py#L51
     poses = np.concatenate([poses[..., 1:2], poses[..., 0:1], -poses[..., 2:3], poses[..., 3:4]], -1) # (N, 3, 4)
+#TMP: try to exclude inversion above
+    # poses = poses[..., 0:4]
 
     # to homogeneous 
     last_row = np.tile(np.array([0, 0, 0, 1]), (len(poses), 1, 1)) # (N, 1, 4)
@@ -108,6 +116,11 @@ if __name__ == '__main__':
 
     if args.visualize: 
         visualize_poses(poses)
+    else:
+        for i in range(N):
+            print(poses[i])
+            print(H, W, fl)
+            print(bounds[i])
 
     # # the following stuff are from colmap2nerf... [flower fails, the camera must be in-ward...]
     # poses[:, 0:3, 1] *= -1
