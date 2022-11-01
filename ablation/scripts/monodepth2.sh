@@ -13,6 +13,9 @@ module load miniconda3
 
 conda activate monodepth2
 
-python ../../../monodepth2/test_simple.py --image_path ../../../datasets/nuscenes-3/images --model_name mono_1024x320
+DATASET=nuscenes-3
+MODEL=mono_1024x320
+
+python ../../../monodepth2/test_simple.py --image_path ../../../datasets/${DATASET}/images --model_name ${MODEL}
 
 
