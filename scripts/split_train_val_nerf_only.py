@@ -70,8 +70,8 @@ if __name__ == '__main__':
         # assert N_pb == N_transforms
 
         # train_mask = np.random.binomial(1, TRAIN_RATIO, size=N_pb).astype(bool)
-        num_train = int(round(TRAIN_RATIO*N_pb))
-        num_val = N_pb - num_train
+        num_train = int(round(TRAIN_RATIO*N_transforms))
+        num_val = N_transforms - num_train
         train_mask = np.array([True]*num_train + [False]*num_val)
         np.random.shuffle(train_mask)
 
