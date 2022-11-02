@@ -35,9 +35,9 @@ if __name__ == '__main__':
         print("transforms.json not found in scenedir")
         exit(1)  
 
-    if not os.path.exists(poses_bounds_npy):
-        print("poses_bounds.npy not found in scenedir")
-        exit(1)  
+    # if not os.path.exists(poses_bounds_npy):
+    #     print("poses_bounds.npy not found in scenedir")
+    #     exit(1)  
 
     np.random.seed(args.random_seed)
 
