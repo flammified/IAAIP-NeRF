@@ -153,7 +153,7 @@ def compute_error(metric, img, ref):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="usage: python ./scripts/eval_all_metrics.py --images_test $SCENE_DIR/images_test --images_rendered $SCENE_DIR/images_screenshot")
     parser.add_argument('--images_test', type=str, default='images_test', help="path to ground truth images")
     parser.add_argument('--images_rendered', type=str, default='images_screenshot', help="path to rendered images")
     args = parser.parse_args()
