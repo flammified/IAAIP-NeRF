@@ -208,7 +208,8 @@ if __name__ == '__main__':
             # Nx3xHxW
             A_torch = torch.from_numpy(A).permute(2,0,1).unsqueeze(0)
             R_torch = torch.from_numpy(R).permute(2,0,1).unsqueeze(0)
-            lpips_d = lpips_loss.forward(A_torch,R_torch)
+        
+            lpips_d = lpips_loss.forward(A_torch,R_torch).item()
             totssim += ssim
             totmse += mse
             totlpips += lpips_d
@@ -217,8 +218,8 @@ if __name__ == '__main__':
             minpsnr = psnr if psnr<minpsnr else minpsnr
             maxpsnr = psnr if psnr>maxpsnr else maxpsnr
             totcount = totcount+1
-            t.set_postfix(psnr = totpsnr/(totcount or 1))
-            exit()
+            t.set_postfix(psnr = totpsnr/(totcount or 1), lpips=totlpips / (totcount or 1))
+            # exit()
 
     psnr_avgmse = mse2psnr(totmse/(totcount or 1))
     psnr = totpsnr/(totcount or 1)
