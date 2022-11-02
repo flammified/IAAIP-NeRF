@@ -6,6 +6,8 @@ import argparse
 import glob
 from scipy.ndimage.filters import convolve1d
 from tqdm import tqdm
+import lpips
+import torch
 
 def mse2psnr(x): return -10.*np.log(x)/np.log(10.)
 
@@ -158,6 +160,8 @@ if __name__ == '__main__':
     parser.add_argument('--images_rendered', type=str, default='images_screenshot', help="path to rendered images")
     args = parser.parse_args()
 
+    lpips_loss = lpips.LPIPS(net='alex')
+
     print("Computing metrics between ", args.images_rendered, " and ", args.images_test)
     # with open(args.test_transforms) as f:
     #     test_transforms = json.load(f)
@@ -165,6 +169,7 @@ if __name__ == '__main__':
     totmse = 0
     totpsnr = 0
     totssim = 0
+    totlpips = 0
     totcount = 0
     minpsnr = 1000
     maxpsnr = 0
@@ -200,16 +205,23 @@ if __name__ == '__main__':
             R = np.clip(linear_to_srgb(ref_image[...,:3]), 0.0, 1.0)
             mse = float(compute_error("MSE", A, R))
             ssim = float(compute_error("SSIM", A, R))
+            # Nx3xHxW
+            A_torch = torch.from_numpy(A).permute(2,0,1).unsqueeze(0)
+            R_torch = torch.from_numpy(R).permute(2,0,1).unsqueeze(0)
+            lpips_d = lpips_loss.forward(A_torch,R_torch)
             totssim += ssim
             totmse += mse
+            totlpips += lpips_d
             psnr = mse2psnr(mse)
             totpsnr += psnr
             minpsnr = psnr if psnr<minpsnr else minpsnr
             maxpsnr = psnr if psnr>maxpsnr else maxpsnr
             totcount = totcount+1
             t.set_postfix(psnr = totpsnr/(totcount or 1))
+            exit()
 
     psnr_avgmse = mse2psnr(totmse/(totcount or 1))
     psnr = totpsnr/(totcount or 1)
     ssim = totssim/(totcount or 1)
-    print(f"PSNR={psnr} [min={minpsnr} max={maxpsnr}] SSIM={ssim}")
+    lpips_d = totlpips/(totcount or 1)
+    print(f"PSNR={psnr} [min={minpsnr} max={maxpsnr}] SSIM={ssim} LPIPS={lpips_d}")
