@@ -161,7 +161,7 @@ if __name__ == '__main__':
     parser.add_argument('--images_rendered', type=str, default='images_screenshot', help="path to rendered images")
     args = parser.parse_args()
 
-    lpips_loss = lpips.LPIPS(net='alex')
+    lpips_loss = lpips.LPIPS(net='vgg')
 
     print("Computing metrics between ", args.images_rendered, " and ", args.images_test)
     # with open(args.test_transforms) as f:
@@ -219,8 +219,11 @@ if __name__ == '__main__':
             # Nx3xHxW
             A_torch = torch.from_numpy(A).permute(2,0,1).unsqueeze(0)
             R_torch = torch.from_numpy(R).permute(2,0,1).unsqueeze(0)
-        
+            psnr = mse2psnr(mse)
             lpips_d = lpips_loss.forward(A_torch,R_torch).item()
+
+            print(image_path, ssim, psnr, lpips_d)
+
             totssim += ssim
             totssim_2 += ssim ** 2
             totmse += mse
