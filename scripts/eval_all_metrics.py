@@ -174,6 +174,7 @@ if __name__ == '__main__':
     totcount = 0
     minpsnr = 1000
     maxpsnr = 0
+    totssim_2 = totpsnr_2 = totlpips_2 = 0
 
     images_test = [f for f in glob.glob(os.path.join(args.images_test, "*")) if f.lower().endswith('png') or f.lower().endswith('jpg') or f.lower().endswith('jpeg')]
 
@@ -221,10 +222,13 @@ if __name__ == '__main__':
         
             lpips_d = lpips_loss.forward(A_torch,R_torch).item()
             totssim += ssim
+            totssim_2 += ssim ** 2
             totmse += mse
             totlpips += lpips_d
+            totlpips_2 += lpips_d ** 2
             psnr = mse2psnr(mse)
             totpsnr += psnr
+            totpsnr_2 += psnr ** 2
             minpsnr = psnr if psnr<minpsnr else minpsnr
             maxpsnr = psnr if psnr>maxpsnr else maxpsnr
             totcount = totcount+1
@@ -233,6 +237,9 @@ if __name__ == '__main__':
 
     psnr_avgmse = mse2psnr(totmse/(totcount or 1))
     psnr = totpsnr/(totcount or 1)
+    psnr_stdev = sqrt((totpsnr_2 / (totcount or 1)) - (psnr ** 2))
     ssim = totssim/(totcount or 1)
+    ssim_stdev = sqrt((totssim_2 / (totcount or 1)) - (ssim ** 2))
     lpips_d = totlpips/(totcount or 1)
-    print(f"PSNR={psnr} [min={minpsnr} max={maxpsnr}] SSIM={ssim} LPIPS={lpips_d}")
+    lpips_d_stdev = sqrt((totlpips_2 / (totcount or 1)) - (lpips_d ** 2))
+    print(f"PSNR={psnr} +- {psnr_stdev} [min={minpsnr} max={maxpsnr}] SSIM={ssim} +- {ssim_stdev} LPIPS={lpips_d} +- {lpips_d_stdev}")
