@@ -1,6 +1,7 @@
 import imageio
 import numpy as np
 import os
+from pathlib import Path
 import struct
 import argparse
 import glob
@@ -179,7 +180,16 @@ if __name__ == '__main__':
     # with tqdm(list(enumerate(test_transforms["frames"])), unit="images", desc=f"Rendering test frame") as t:
     with tqdm(images_test, unit="images", desc="Computing metrics") as t:
         for image_test_path in t:
-            image_path = os.path.join(args.images_rendered, os.path.basename(image_test_path))
+            image_path_noext = os.path.join(args.images_rendered, Path(image_test_path).stem)
+
+            ext_list = [".png", ".PNG", ".jpg", ".JPG", ".jpeg", ".JPEG", ".exr"]
+
+            image_path = None
+            for ext in ext_list:
+                image_path = image_path_noext + ext
+                if os.path.isfile(image_path):
+                    break
+            
 
             # ref_fname = os.path.join(data_dir, p)
             # if not os.path.isfile(ref_fname):
@@ -191,7 +201,7 @@ if __name__ == '__main__':
                         # if not os.path.isfile(ref_fname):
                         # 	ref_fname = os.path.join(data_dir, p + ".exr")
 
-            if not os.path.exists(image_test_path):
+            if not os.path.exists(image_path):
                 print("No matching rendered image")
                 exit(1)
 
