@@ -4,9 +4,9 @@
   <br><br>
 </p>
 
-# Rendering forward facing driving scenes using Neural Radiance Fields
+# Rendering urban scenes using Neural Radiance Fields based on autonomous driving datasets
 
-This repository contains the code for the Interdisciplinary Advanced AI Project (IAAIP) of the TU Delft. During this project we have worked on `Rendering forward facing driving scenes using Neural Radiance Fields`. The project took 10 weeks in total.
+This repository contains the code for the Interdisciplinary Advanced AI Project (IAAIP) of the TU Delft. During this project we have worked on `Rendering urban scenes using Neural Radiance Fields based on autonomous driving datasets`. The project took 10 weeks in total.
 
 The repository structure is as follows:
 
@@ -34,30 +34,7 @@ The repository structure is as follows:
 
 - `scripts`: Python scripts for (i.e.) converting from slices to different input files and generating masks using semantic segmentation
 
-## Project outline
-
-The project consists of three parts:
-
-1) Initial literature study inventorying the current state of NeRF applied to driving scenes
-2) An evaluation of current technologies on driving scenes and common failure modes
-3) An attempt at improving rendering by removing dynamic objects from the scene
-
-<!--- ## Evaluation of current technologies
-
-### COLMAP
-
-**TODO**
-
-### C2W matrices and inputs
-
-**TODO**
-
-### NDC and scaling
-
-**TODO**
---->
-
-### Results
+## Results
 
 To consult the results, please refer to our [paper](paper.pdf).
 
