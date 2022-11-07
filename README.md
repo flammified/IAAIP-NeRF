@@ -10,19 +10,39 @@ This repository contains the code for the Interdisciplinary Advanced AI Project 
 
 The repository structure is as follows:
 
-* `slices`: directory containing slices of different datasets that were used to evaluate different systems.
-* `scripts`: directory containing scripts for (i.e.) converting from slices to different input files and generating masks using semantic segmentation.
-* `models`: directory containing trained models.
+- `experiments`: everything related to the experiments from our paper
+  
+  - `camera_paths`: camera paths for rendering videos
+  
+  - `delftblue_docs` DelftBlue Bash code with documentation (incomplete)
+  
+  - `experiments\scripts` Bash scripts that we used for running the experiments
 
-## The project
+- `papers`: submodules we used in our work:
+  
+  - Ha-NeRF — Ha-NeRF (Hallucinated Neural Radiance Fields in the Wild) using pytorch.
+  
+  - LLFF — Local Light Field Fusion.
+  
+  - instant-ngp — Instant neural graphics primitives. <u>Our fork</u> adds: a script to convert camera poses from nuScenes to NeRF format (transforms.json); the flag --visualize_cameras to the testbed, useful to debug camera positions.
+  
+  - nerf_pl — NeRF (Neural Radiance Fields) and NeRF in the Wild using pytorch-lightning.
+  
+  - nerfstudio — A collaboration friendly studio for NeRFs.
+  
+  - torch-ngp — A pytorch CUDA extension implementation of instant-ngp (sdf and nerf), with a GUI.
+
+- `scripts`: Python scripts for (i.e.) converting from slices to different input files and generating masks using semantic segmentation
+
+## Project outline
 
 The project consists of three parts:
 
-1) Initial literature study inventorying the current state of NeRF in rendering forward facing driving scenes
+1) Initial literature study inventorying the current state of NeRF applied to driving scenes
 2) An evaluation of current technologies on driving scenes and common failure modes
 3) An attempt at improving rendering by removing dynamic objects from the scene
 
-## Evaluation of current technologies
+<!--- ## Evaluation of current technologies
 
 ### COLMAP
 
@@ -35,22 +55,7 @@ The project consists of three parts:
 ### NDC and scaling
 
 **TODO**
-
-### Papers
-
-The `papers/`directory contains submodules we used in our work:
-
-- Ha-NeRF &mdash; Ha-NeRF (Hallucinated Neural Radiance Fields in the Wild) using pytorch.
-
-- LLFF &mdash; Local Light Field Fusion.
-
-- instant-ngp &mdash; Instant neural graphics primitives. <u>Our fork</u> adds: a script to convert camera poses from nuScenes to NeRF format (transforms.json); the flag --visualize_cameras to the testbed, useful to debug camera positions. 
-
-- nerf_pl &mdash; NeRF (Neural Radiance Fields) and NeRF in the Wild using pytorch-lightning.
-
-- nerfstudio &mdash; A collaboration friendly studio for NeRFs.
-
-- torch-ngp &mdash; A pytorch CUDA extension implementation of instant-ngp (sdf and nerf), with a GUI.
+--->
 
 ### Results
 
