@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://d2k0ddhflgrk1i.cloudfront.net/Websections/Huisstijl/Bouwstenen/Logo/02-Visual-Bouwstenen-Logo-Varianten-v1.png"/><br>
-  <a href="paper.pdf">Report</a>
+  <a href="report.pdf">Report</a>
   <br><br>
 </p>
 
@@ -38,7 +38,7 @@ The repository structure is as follows:
 
 ## Results
 
-To consult the results, please refer to our [paper](paper.pdf).
+To consult the results, please refer to our [report](report.pdf).
 
 ## Usage
 
