@@ -34,6 +34,8 @@ The repository structure is as follows:
 
 - `scripts`: Python scripts for (i.e.) converting from slices to different input files and generating masks using semantic segmentation
 
+## Supplementary material
+
 ## Results
 
 To consult the results, please refer to our [paper](paper.pdf).
