@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://d2k0ddhflgrk1i.cloudfront.net/Websections/Huisstijl/Bouwstenen/Logo/02-Visual-Bouwstenen-Logo-Varianten-v1.png"/><br>
-  <a href="">Report</a>
+  <a href="paper.pdf">Report</a>
   <br><br>
 </p>
 
