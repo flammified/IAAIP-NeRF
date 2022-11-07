@@ -5,4 +5,4 @@ You need to make sure that you have CUDA, torch and torchvision installed, as we
 
 2. Install the progress bar: `pip install tqdm`
 
-3. Run the script by passing the image directory. The script will create the masks inside the given directory for each image.
+3. Run the `create_masks.py` script by passing the image directory. The script will create the masks inside the given directory for each image.
