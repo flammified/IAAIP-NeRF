@@ -61,7 +61,27 @@ The project consists of three parts:
 
 To consult the results, please refer to our [paper](paper.pdf).
 
-## Using semantic segmentation for dynamic objects
+## Usage
+
+#### nuScenes camera poses to NeRF format
+
+Generate transforms.json and hard-link images to the local folder.
+
+PATH_TO_INSTANT_NGP refers to the path where `papers/instant-ngp` was cloned.
+
+```bash
+cd $DATASET_DIR
+python $PATH_TO_INSTANT_NGP/scripts/dataset2nerf_nuscenes.py --aabb_scale=4 --num_dataset_samples=20 --scene_num 6 --nuscenes_dataroot $NUSCENES_DATAROOT --adaptive_rescale
+```
+
+Generate train/test splits
+
+```bash
+cd IAAIP-NeRF/scripts/
+python split_train_val.py ./split_test/nuscenes6_6cam/ --percent_train 80
+```
+
+#### Semantic segmentation for dynamic objects removal
 
 We use [Detectron2]() to generate the segmentation masks.
 Follow the instructions in [scripts/mask_generation/README.md](scripts/mask_generation/README.md) to reproduce.
