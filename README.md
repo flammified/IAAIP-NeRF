@@ -53,7 +53,7 @@ Nuscenes folders were also subdivided based on the amounts of cameras used:
 
 Lastly, here is an overview of side-by-side videos (not belonging to any folder):
 - `nuscenes1_6cam_masks_sbs.mp4` - comparison between model trained without the masks (left) and with them (right), with `nuscenes1` being `scene-0103` in the report
-- `nuscenes1_unseen_lane_sbs3_trainsteps.mov` - comparison between the models trained on (left-to-right) 30k steps, 75k steps, 120k steps, `scene-0103`
+- `nuscenes1_unseen_lane_sbs3_trainsteps.mov` - comparison between the models trained on (left-to-right) 30k steps, 60k steps, 120k steps, `scene-0103`
 - `nuscenes1_zigzag_sbs2_trainsteps.mov` - comparison between the models trained on 30k steps (left) vs 120k steps (right), `scene-0103`
 - `nuscenes3_6cam_masks_sbs.mp4` - comparison between model trained without the masks (left) and with them (right), scene `scene-0655`
 - `nuscenes3_zigzag_sbs3.mov` - comparison between 3 models  trained on (left-to-right) 1, 3 and 6 cameras, scene `scene-0655`
