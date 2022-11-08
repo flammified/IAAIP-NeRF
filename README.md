@@ -26,7 +26,8 @@ The repository structure is as follows:
   
   - instant-ngp — Instant neural graphics primitives. <u>Our fork</u> adds: a script to convert camera poses from nuScenes to NeRF format (transforms.json); the flag --visualize_cameras to the testbed, useful to debug camera positions.
   
-  - nerf_pl — NeRF (Neural Radiance Fields) and NeRF in the Wild using pytorch-lightning.
+  - nerf_pl — NeRF (Neural Radiance Fields) and NeRF in the Wild using pytorch-lightning. 
+  <u>Our fork</u>adds: a small pull of an earlier Blender dataloader that reads intrinsics from `transforms.json` and removes the square image requirement.
   
   - nerfstudio — A collaboration friendly studio for NeRFs.
   
