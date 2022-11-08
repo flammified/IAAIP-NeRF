@@ -36,6 +36,8 @@ The repository structure is as follows:
 
 ## Supplementary material
 
+More videos of our experiments using different amounts of cameras [can be found here.](https://drive.google.com/drive/folders/1iB6RpWyblUw1XvE3HVlnWes3fS5jhRW4?usp=share_link)
+
 ## Results
 
 To consult the results, please refer to our [report](report.pdf).
